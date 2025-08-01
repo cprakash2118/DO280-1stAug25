@@ -29,14 +29,21 @@ https://www.redhat.com/en/resources/openshift-skill-paths-datasheet
 https://reprint.forrester.com/reports/the-forrester-wavetm-multicloud-container-platforms-q3-2025-f3367e46/index.html
 https://reprints2.forrester.com/#/assets/2/431/RES178526/report
 
+https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster
 
+###
 Point-02-# Login to ROL environment - ROL (RedHat Online Learning)
 https://rol.redhat.com  [Red Hat Login ID - RHL].
 - Click on "Join" -> Overview.
 - Access my LAB? - Click on "Lab" - LAB environment will be discussed.
 - Click on resources - then again click on "Access BookSelf" - to access your bookself/PDF.
 
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.14
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/
+
+###
 Point-03-# TOC 
+***************************
 Unit-1-  Declarative Resource Management:-
 - Resource Manifests 
 - Kustomize Overlays 
@@ -53,7 +60,7 @@ Unit-4- Network Security:-
 - Protect External Traffic with TLS 
 - Configure Network Policies 
 - Protect Internal Traffic with TLS 
-
+****************************
 
 Unit-5-# Expose non-HTTP/SNI Applications
 - Load Balancer Services 
@@ -74,3 +81,59 @@ Unir-8-#  Application Security
 - Cluster and Node Maintenance with Kubernetes Cron Jobs 
 
 Unit-9-# OpenShift Updates (Pathc Management):-
+
+###
+Point-04-# Explain classroom environment:-
+
+-4.1-# Users details:-
+     Login to VMs/Servers 
+	 - student/student  [sudo access] 
+	 - root/redhat
+
+     Login to OCP cluster.
+	 - admin/redhatocp - cluster-admin access [same as root account w.r.t Linux OS].
+	 - developer/developer - member access [Same as normal account w.r.t Linux OS]
+	 
+	 - kubeadmin/kubeadmin-password (On utility node - /home/lab/ocp4/auth/{kubeadmin,kubeadmin-password}
+	 
+	 - cat /home/lab/ocp4/auth/kubeadmin-password ; echo 
+	  lkasjfdlsakjflskajl
+
+     - cat /home/lab/ocp4/auth/kubeconfig | grep server  
+	   https://api.ocp4.example.com:6443 
+	   
+	   
+*************LAB*********************
+https://rol.redhat.com  [Red Hat Login ID - RHL].
+- Click on "Join" -> Overview.
+- Access my LAB? - Click on "Lab".
+- Click on "Open Console" for "workstation" node.
+- Open Terminal and try to access OCP cluster.
+
+$ hostname -s 
+workstation
+$ hostname -d
+lab.example.com 
+$ hostname -f 
+workstation.lab.example.com 
+
+$ uptime (System be up almost 20-25 mins).
+$ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+$ oc whoami 
+admin 
+$ oc whoami -t 
+laksjdklsajdlksajdlkasjdlkasjlk  (This is your access token).
+
+$ oc version 
+$ oc get clusterversion 
+$ oc get nodes 
+$ oc whoami --show-consle 
+https://console-openshift-console.apps.ocp4.example.com
+
+FYI- Access web consle via firefox and use admin/redhatocp - Able to access OCP cluster via web. 
+
+
+
+
+
+
