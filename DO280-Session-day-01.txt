@@ -202,7 +202,6 @@ https://kubernetes.io/
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 https://kubernetes.io/docs/setup/production-environment/container-runtimes/
  
-  
   layer-06   End user application [Like banking application or BFSI level deployment]
   layer-05   Add-on kubernetes services [Like - network/authentication/LB/monitoring/etc]
   layer-04   Certified kubernetes orchestration tool (k8sV1.32)
@@ -223,3 +222,31 @@ Lets discussed quickly w.r.t OpenShift.
   layer-03   Install- Container Run Time (crio)
   layer-02   Install- Red Hat Enterprise Linux CoreOS 
   layer-01   hardware/Cloud/Virtualization 
+  
+  
+  
+  OCP cluster:-
+  - master node/ control plane  [Where k8s/ocp service running; which serve conatiner services.]
+  - worker node/ compute plane  [Where end user application running]
+  
+  - master node (3 master node) enough to manage 2k worker node.
+  FYI- Onboarding to node (master/worker) 
+  - later can be convert/move worker node to other[storage/infra/custom/etc]
+  
+  
+  oc mean OpenShift Client - Which communicate with OCP cluster.
+  oc --help |less
+  oc login --help |less
+  oc adm policy --help |less
+  etc 
+  
+  Note: OpenShift/k8s provide Rest API to manage it's own resources.
+  Kubernetes/OCP resources - pod,service,deployment,replicaset,route, etc.
+  
+  
+  
+  
+  
+  
+  
+  
