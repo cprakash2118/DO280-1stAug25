@@ -244,6 +244,9 @@ Lets discussed quickly w.r.t OpenShift.
   Kubernetes/OCP resources - pod,service,deployment,replicaset,route, etc.
   
   
+  ################# End of the today's session - 01-Aug25 #########################
+  
+  
   
   
   
