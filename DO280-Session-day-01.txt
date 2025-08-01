@@ -103,7 +103,7 @@ Point-04-# Explain classroom environment:-
 	   https://api.ocp4.example.com:6443 
 	   
 	   
-*************LAB*********************
+*************LAB-Start-Here*********************
 https://rol.redhat.com  [Red Hat Login ID - RHL].
 - Click on "Join" -> Overview.
 - Access my LAB? - Click on "Lab".
@@ -130,7 +130,45 @@ $ oc get nodes
 $ oc whoami --show-consle 
 https://console-openshift-console.apps.ocp4.example.com
 
-FYI- Access web consle via firefox and use admin/redhatocp - Able to access OCP cluster via web. 
+FYI- Access web consle via firefox and use admin/redhatocp - Able to access OCP cluster via web.
+
+
+Key points:-
+-1# Login to OCP cluster?
+$ oc login -u userName -p password API_URL
+Example:-
+$ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+
+
+-2# Example point 1 is not working, what I need to do?
+$ ssh root@utility  [Not ask for password]
+# cd /home/lab/ocp4/auth/
+# ls 
+kubeadmin-password kubeconfig
+# scp -r kube* student@workstation:/home/student
+Student@workstation's password: student 
+# exit
+
+$ ls -l 
+$ oc get pods -n openshift-authentication --kubeconfig /home/student/kubeconfig
+$ oc get pods -n openshift-apiserver --kubeconfig /home/student/kubeconfig
+$ oc get pods -n openshift-kube-apiserver --kubeconfig /home/student/kubeconfig
+$ oc get pods -n openshift-etcd --kubeconfig /home/student/kubeconfig
+$ oc get pods -n openshift-controller-manager --kubeconfig /home/student/kubeconfig
+$ oc get pods -n openshift-scheduler --kubeconfig /home/student/kubeconfig
+
+or 
+$ ssh lab@utility 
+$ ./wait.sh 
+
+
+$ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+$ oc whoami 
+$ oc whoami -t 
+$ oc version
+$ oc get clusterversion 
+
+*************LAB-End-Here*********************
 
 
 
