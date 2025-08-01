@@ -1,0 +1,76 @@
+#https://github.com/cprakash2118/DO280-1stAug25
+
+Point-01-# Product Name - Red Hat OpenShift.
+https://www.redhat.com/en/technologies/cloud-computing/openshift
+
+1-# Cloud services editions
+ - Red Hat OpenShift Service on AWS    [ROSA - Platfrom=AWS;POC=Amazon]
+ - Microsoft Azure Red Hat OpenShift   [ARO  - Platfrom=Azure;POC=Microsoft]
+ - Red Hat OpenShift Dedicated         [Dedicated - Platfrom=AWS/GCP;POC=RedHat]
+ - Red Hat OpenShift on IBM Cloud      [Platfrom=IBM;POC=IBM]
+ 
+2-# Self-managed editions
+ - Red Hat OpenShift Kubernetes Engine     [RHOKE-basic]
+ - Red Hat OpenShift Container Platform    [RHOCP-Standard]
+ - Red Hat OpenShift Platform Plus         [RHOPP-AddOn service]
+ - Red Hat OpenShift Virtualization Engine [RHOV-kubeVirt]
+ 
+3-# Services & add-ons
+ - Red Hat OpenShift AI
+ - Red Hat OpenShift Lightspeed
+ - Red Hat OpenShift Virtualization
+ - Red Hat Quay
+ - Red Hat Advanced Cluster Management for Kubernetes
+ - Red Hat Advanced Cluster Security for Kubernetes
+ - Red Hat Advanced Developer Suite
+ - Red Hat OpenShift Consulting
+ 
+https://www.redhat.com/en/resources/openshift-skill-paths-datasheet
+https://reprint.forrester.com/reports/the-forrester-wavetm-multicloud-container-platforms-q3-2025-f3367e46/index.html
+https://reprints2.forrester.com/#/assets/2/431/RES178526/report
+
+
+Point-02-# Login to ROL environment - ROL (RedHat Online Learning)
+https://rol.redhat.com  [Red Hat Login ID - RHL].
+- Click on "Join" -> Overview.
+- Access my LAB? - Click on "Lab" - LAB environment will be discussed.
+- Click on resources - then again click on "Access BookSelf" - to access your bookself/PDF.
+
+Point-03-# TOC 
+Unit-1-  Declarative Resource Management:-
+- Resource Manifests 
+- Kustomize Overlays 
+
+Unit-2- Deploy Packaged Applications:-
+- OpenShift Templates 
+- Helm Charts
+
+Unit-3- Authentication and Authorization
+- Configure Identity Providers (Authentication part)
+- Define and Apply Permissions with RBAC (Authorization)
+
+Unit-4- Network Security:-
+- Protect External Traffic with TLS 
+- Configure Network Policies 
+- Protect Internal Traffic with TLS 
+
+
+Unit-5-# Expose non-HTTP/SNI Applications
+- Load Balancer Services 
+- Multus Secondary Networks 
+
+Unit-6-#  Enable Developer Self-Service
+- ResourceQuota 
+- LimitRange
+- Custom Templates.
+
+Unit-7-#  Manage Kubernetes Operators
+- Operator installation via GUI
+- Operator installation via cli
+
+Unir-8-#  Application Security
+- Control Application Permissions with Security Context Constraints (and Guided Exercise)
+- Allow Application Access to Kubernetes APIs
+- Cluster and Node Maintenance with Kubernetes Cron Jobs 
+
+Unit-9-# OpenShift Updates (Pathc Management):-
