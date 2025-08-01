@@ -102,7 +102,25 @@ Point-04-# Explain classroom environment:-
      - cat /home/lab/ocp4/auth/kubeconfig | grep server  
 	   https://api.ocp4.example.com:6443 
 	   
-	   
+
+-4.2-# Network/Domain details:-
+     
+	 networkName              domainName              ipRange 
+    student Network         lab.example.com         172.25.250.0/24
+    classroom Network       example.com             172.25.252.0/24
+    cluster Network         ocp4.example.com       	192.168.50.0/24
+	
+
+-4.3-#  VMs/Servers details:-
+     workstation.lab.example.com     RHEL9-with-Gui (Jump server).
+	 bastion.lab.example.com         Act as router between classroom & student network.
+	 classroom.example.com           Provide network to workstation/cluster 
+	 utility.lab.example.com         DNS/DHCP/PXE/NFS/apache/HAproxy etc.
+     FYI- utility node used for build OCP cluster using kickstart/pxe env, storageClass via nfs.
+     registry.ocp4.example.com       Private registry for image.
+     idm.ocp4.example.com            LDAP server.
+     master01.ocp4.example.com       Masrer/worker node.
+
 *************LAB-Start-Here*********************
 https://rol.redhat.com  [Red Hat Login ID - RHL].
 - Click on "Join" -> Overview.
