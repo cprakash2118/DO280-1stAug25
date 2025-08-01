@@ -188,8 +188,38 @@ $ oc get clusterversion
 
 *************LAB-End-Here*********************
 
+- Login to OCP cluster.
+ $ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+
+- What is OCP cluster?
+  master node (3 master nodes)
+  worker node (N worker nodes)
+  
+###  Kubernetes Vs OpenShift
+
+Lets discussed quickly w.r.t k8s (kubernetes).
+https://kubernetes.io/
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+ 
+  
+  layer-06   End user application [Like banking application or BFSI level deployment]
+  layer-05   Add-on kubernetes services [Like - network/authentication/LB/monitoring/etc]
+  layer-04   Certified kubernetes orchestration tool (k8sV1.32)
+             [kubelet,kube-apiserver,kube-controller-manager,kube-scheduler,etcd]   
+			 kubelet only systemd process here, rest all are deployed as container.
+  layer-03   Install- Container Run Time [containerd,crio,docker,Miratis Container Runtime etc]
+              crio also systemd process here- systemctl status crio/kubelet
+  layer-02   Install- Operating System (OS) - RHEL/SUSE - Enterprise Linux.
+  layer-01   hardware/Cloud/Virtualization 
 
 
-
-
-
+Lets discussed quickly w.r.t OpenShift.
+  layer-07   End user application [Like banking application or BFSI level deployment]
+  layer-06   Red Hat openshift Platform Plus [AI,ACM,ACS,Quay,3sacleAPI,kubeVirt etc]
+  layer-05   Red Hat OpenShift Container Platform (RHOCP - Red Hat OpenShift Container Platform)
+  layer-04   Red Hat openshift Kubernetes Engine (RHOKE - Red Hat OpenShift Kubernetes Engine)
+  layer-04   Certified kubernetes orchestration tool (k8sV1.32)
+  layer-03   Install- Container Run Time (crio)
+  layer-02   Install- Red Hat Enterprise Linux CoreOS 
+  layer-01   hardware/Cloud/Virtualization 
