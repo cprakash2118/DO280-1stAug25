@@ -59,6 +59,24 @@ $ cat /home/student/kubeadmin-password ; echo
 alksdjlkasjdlsak
 $ oc login -u kubeadmin -p alksdjlkasjdlsak https://api.ocp4.example.com:6443 
 
+------ Backdoor entry for cluster-admin --------------
+$ ls -l kubeadmin
+$ export KUBECONFIG=/home/student/kubeconfig 
+$ env | grep KUBECONFIG
+KUBECONFIG=/home/student/kubeconfig
+$ unset KUBECONFIG
+$ env | grep KUBECONFIG
+No Output 
+
+$ oc get pods -n openshift-authentication
+$ oc get pods -n openshift-apiserver 
+$ oc get pods -n openshift-kube-apiserver
+$ oc get pods -n openshift-etcd 
+$ oc get pods -n openshift-controller
+
+If all pods are running then all to login to OCP cluster.
+
+
 
 
 
