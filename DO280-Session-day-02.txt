@@ -75,8 +75,30 @@ $ oc get pods -n openshift-etcd
 $ oc get pods -n openshift-controller
 
 If all pods are running then all to login to OCP cluster.
+##############################################################################
+Day-02: 
 
+Unit-3-# Authentication and Authorization
+- Configure Identity Providers.
+- Define and Apply Permissions with RBAC.
 
+Task-01:- Need to enable team access to OCP cluster via IdP=htpasswd.
+UserName - user1 to user5
+Password - redhat123
+file-uploadName - htpasswd-upload-sre-team
+SecretName - secret-sre-team 
+IdP Name - IdP-htpasswd-sre-team 
+ 
+Solution:- Using IdP (htpasswd) login to OCp cluster and provide required/admin level access.
+
+Step-01:- Required user/passowrd database.
+$ htpasswd --help 
+$ htpasswd -c -B -b  htpasswd-upload-sre-team user1 redhat123 
+$ cat htpasswd-upload-sre-team
+$ htpasswd    -B -b  htpasswd-upload-sre-team user2 redhat123
+$ htpasswd    -B -b  htpasswd-upload-sre-team user3 redhat123 
+$ htpasswd    -B -b  htpasswd-upload-sre-team user4 redhat123
+$ htpasswd    -B -b  htpasswd-upload-sre-team user5 redhat123
 
 
 
