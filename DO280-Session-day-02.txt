@@ -161,6 +161,8 @@ then press "i" key for insert mode and paste below contents.
       fileData:
         name: secret-sre-team 
 
+Press "Esc" key to lock mode.
+:wq (enter)
 
 
 $ oc apply -f oauth.yaml 
