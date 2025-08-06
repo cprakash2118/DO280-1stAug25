@@ -100,6 +100,30 @@ $ htpasswd    -B -b  htpasswd-upload-sre-team user3 redhat123
 $ htpasswd    -B -b  htpasswd-upload-sre-team user4 redhat123
 $ htpasswd    -B -b  htpasswd-upload-sre-team user5 redhat123
 
+Step-02:- Inject the information( from file data)  to OCP cluster via "secret".
+FYI- "secret" is k8s/ocp resource.
+
+Note: You must be login to OCP cluster as "cluster-admin" [FYI- cluster-admin is same as root account w.r.t Linux]
+
+$ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+$ oc whoami 
+admin
+$ oc version 
+$ oc get nodes 
+
+$ oc create secret generic secret-sre-team --from-file htpasswd=htpasswd-upload-sre-team -n openshift-config
+FYI:-
+ SecretType=generic 
+ SecretName=secret-sre-team
+ Data - From file 
+ -n (namespace)=openshift-config 
+
+Once secret created then verify the secret.
+$ oc get secret secret-sre-team -n openshift-config
+$ oc get secret secret-sre-team -n openshift-config -o yaml
+$ oc get secret secret-sre-team -n openshift-config -o yjson 
+  
+
 
 
 
