@@ -121,8 +121,87 @@ FYI:-
 Once secret created then verify the secret.
 $ oc get secret secret-sre-team -n openshift-config
 $ oc get secret secret-sre-team -n openshift-config -o yaml
-$ oc get secret secret-sre-team -n openshift-config -o yjson 
+$ oc get secret secret-sre-team -n openshift-config -o json 
   
+FYI
+- Namespace is a resource which allow to keep other k8s/ocp resources.
+- Example:- condier k8s/ocp "namespace" same as "Directory" w.r.t Linux/Unix.
+- k8s/ocp resources - pod,replicaset,deployment,secret,configmap, etc.
+
+Step-03:- Update to "oauth" w.r.t IdP (Identity Provider - htpasswd, LDAP, OpenID Connect, RHSSO, IBM SSO etc), secret details.
+
+$ oc get oauth cluster 
+$ oc get oauth cluster -o yaml 
+$ oc get oauth cluster -o yaml > oauth.yaml  (It can be anyname but with *.yaml/yml extention). 
+
+What informaiton we need to update?
+Who we will get the syntax, any reference link/doc? 
+
+Answer is "yes" - doc called CUDO (Customer Documentation).
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.14
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.14/html/authentication_and_authorization/index
+
+- Open in single HTMl page of PDF.
+- Search for "identityProvider" 
+
+
+vim oauth.yaml 
+
+
+
+:set paste (enter)
+again 
+:set cuc (enter)
+then press "i" key for insert mode and paste below contents.
+
+  - name: IdP-htpasswd-sre-team 
+    mappingMethod: claim 
+    type: HTPasswd
+    htpasswd:
+      fileData:
+        name: secret-sre-team 
+
+
+
+$ oc apply -f oauth.yaml 
+$ oc get pods -n openshift-authetication
+$ watch oc get pods -n openshift-authetication   (To come out from here - press "ctrl + c).
+
+
+Login to ocp cluster using your users accounts.
+
+$ oc login -u user1 -p redhat123 https://api.ocp4.example.com:6443 
+$ oc whoami 
+$ oc whoami -t 
+
+Login to other users also and verify the work.
+Once all login verifed the login back to cluster-admin via admin/kubeadmin user.
+
+$ oc login -u admin -p redhat123 https://api.ocp4.example.com:6443 
+$ oc whoami 
+admin
+$oc get users 
+$ oc get identity 
+$ oc adm policy add-cluster-role-user cluster-admin user11 
+
+
+Login via user11 and verify.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
