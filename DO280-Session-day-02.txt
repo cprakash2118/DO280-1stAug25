@@ -45,6 +45,26 @@ Solution:-
  - Open termianl and access to OCP user via (username/password and API URL).
  - Get the web console URL and try to login to OCP cluster via admin/password.
  - Select "Red Hat Identity Management" then provide admin/redhatocp logins.
+
+*********************************
+$ root@utlity 
+# cd /home/lab/ocp4/auth
+# ls 
+kubeconfig kubeadmin-password 
+# scp -r kube* student@workstation:/home/student/
+Some messsage the press "y" and continue...
+Student's Password: student 
+# exit
+$ cat /home/student/kubeadmin-password ; echo 
+alksdjlkasjdlsak
+$ oc login -u kubeadmin -p alksdjlkasjdlsak https://api.ocp4.example.com:6443 
+
+
+
+
+
+
+
  
 
  
