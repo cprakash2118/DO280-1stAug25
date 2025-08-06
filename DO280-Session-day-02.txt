@@ -1,0 +1,52 @@
+https://github.com/cprakash2118/DO280-1stAug25
+
+Quick Recap:-
+Point-01-) Classroom environment:-
+ W.r.t Login to VMs:-
+ - student/student 
+ - root/redhat 
+ 
+ W.r.t Login to OCP cluster:-
+ - admin/redhatocp 
+ - developer/developer
+ 
+ Login to Workstation node (via Console) - Click on "Open Console" 
+ FYI- workstation node as JUMP server, used for login to OCP cluster.
+ 
+ - OPen Terminal - "Click on Activity" then click on "Terminal".
+ 
+ Login to OCP cluster:-
+ $ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443
+ FYI- Login to OCP cluster, required below points.
+ userName=admin
+ password=redhatocp 
+ apiURL=https://api.ocp4.example.com:6443 
+ 
+ apiURL=https://api.clusterName.baseDomain:6443 
+ clusterName=ocp4
+ baseDomain=example.com 
+ part=6443 
+ 
+ $ oc whoami 
+ admin 
+ $ oc whoami -t 
+ akjsdhasjdkasjdhaskj
+ $ oc whoami --show-console 
+ https://console-openshift-console.apps.ocp4.example.com 
+ Use same admin/redhatocp credentials to login to OCP cluster via Web COnsole.
+ 
+Day-02-lab-01:- 
+Task-01:-
+ - Login to OCP cluster using CLI
+ - Login to OCP cluster using Web Console
+ 
+Solution:-
+ - Login to workstation.
+ - Open termianl and access to OCP user via (username/password and API URL).
+ - Get the web console URL and try to login to OCP cluster via admin/password.
+ - Select "Red Hat Identity Management" then provide admin/redhatocp logins.
+ 
+
+ 
+ 
+ 
