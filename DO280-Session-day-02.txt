@@ -186,8 +186,91 @@ $oc get users
 $ oc get identity 
 $ oc adm policy add-cluster-role-user cluster-admin user11 
 
-
 Login via user11 and verify.
+
+TASK end here.
+##############################################################################
+
+Point-1-# Login to OCP cluster.
+ - Token based authentication (via "Oauth" - oc get oauth cluster)
+   FYI
+   - "Oauth" is an identity broker.
+   - Oauth (on behalf of Red Hat OpenSHift) sync with IdP (Identity Provider - htpasswd,LDAP,Keystone etc).
+   - Authentication done by IdP only, authorization done by "oauth".
+   - users [oc get users]
+   - identity [oc get identity]
+   - users can be part of groups [We will add users to groups for easy operations]
+  
+  - Certificate based authentication:-
+    via kubeconfig file (client-certificate)
+	- backdoor entry for cluster-admin (If Oauth not working).
+	- auditor entry to OCP cluster for cluster audit.
+	
+	
+
+*********************************
+$ root@utlity 
+# cd /home/lab/ocp4/auth
+# ls 
+kubeconfig kubeadmin-password 
+# scp -r kube* student@workstation:/home/student/
+Some messsage the press "y" and continue...
+Student's Password: student 
+# exit
+$ cat /home/student/kubeadmin-password ; echo 
+alksdjlkasjdlsak
+$ oc login -u kubeadmin -p alksdjlkasjdlsak https://api.ocp4.example.com:6443 
+
+------ Backdoor entry for cluster-admin --------------
+$ ls -l kubeadmin
+$ export KUBECONFIG=/home/student/kubeconfig 
+$ env | grep KUBECONFIG
+KUBECONFIG=/home/student/kubeconfig
+$ unset KUBECONFIG
+$ env | grep KUBECONFIG
+No Output 
+
+
+1- $ oc whoami --kubeconfig /location/of/kubeconfig/file 
+Eg: $ oc whoami --kubeconfig /home/student/kubeconfig 
+
+2- $ env | grep KUBECONFIG
+    NO output mean KUBECONFIG not loaded.
+   $ export KUBECONFIG=/home/student/kubeconfig
+   $ env | grep KUBECONFIG
+   KUBECONFIG=/home/student/kubeconfig
+   $ oc whoami 
+   $ oc whoami -t
+   
+3- $ cp -rpv /home/student/kubeconfig to /home/student/.kube/config 
+   $ oc whoami 
+   $ oc whoami -t 
+   
+ 
+- Who created kubeconfig & kubeadmin-password files.
+
+$ ssh root@utility 
+# cd /home/lab/ocp4/auth 
+# ls 
+kubeconfig kubeadmin-password
+# cd /home/lab/ocp4
+# mkdir demo 
+# cp -rpv install-config.yaml.bkp openshift-install demo 
+# cd demo
+# ls -l 
+install-config.yaml.bkp openshift-install
+# mv install-config.yaml.bkp install-config.yaml
+# vim install-config.yaml
+
+# Refer the screenshot (image01,image-02).
+
+
+
+
+
+
+
+
 
 
 
