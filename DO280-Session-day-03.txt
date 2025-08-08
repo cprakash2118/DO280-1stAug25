@@ -1,0 +1,121 @@
+### Day-03:-
+
+-https://github.com/cprakash2118/DO280-1stAug25
+
+# Quick Recap:-
+
+Classroom Environment [login to VMs/OCP cluster; nodes/VMs & Network]
+
+Unit-03-# Authentication and Authorization
+- Configure Identity Providers
+- Define and Apply Permissions with RBAC
+
+Task-01- Completed 
+***************
+Task-01:- Need to enable team access to OCP cluster via IdP=htpasswd.
+UserName - user1 to user5
+Password - redhat123
+file-uploadName - htpasswd-upload-sre-team
+SecretName - secret-sre-team 
+IdP Name - IdP-htpasswd-sre-team 
+***************
+
+
+-  Define and Apply Permissions with RBAC
+
+Rule - Action 
+Role - Set of Actions to be taken (Team Lead, Manager, Director etc) 
+Binding - Assign role to users or groups called "Role Binding".
+
+- Role Binding via Role Based Access Control (RBAC).
+- Scope of RBAC w.r.t Cluster & project (namespace).
+
+Roles can be on Cluster level - cluster role 
+Roles can be on namespace/project level - role (local role).
+
+Default roles:-
+1- cluster-admin role (same as root access w.r.t Linux/Unix - Super User).
+2- cluster-reader role (Read access to complete cluster - monitoring/auditor).
+3- cluster-status role (Get the status of the cluster).
+4- self-provisioner (cluster role and responsible for providing access to create namespace)
+5- view (w.r.t local/namespace level ) - Read access w.r.t specific namespace.
+6- edit (w.r.t local/namespace level ) - Write access w.r.t specific namespace.
+7- admin(w.r.t local/namespace level ) - Admin access w.r.t specific namespace.
+8- basic-user -  Users with this role have read access to the project.
+
+
+********************************* Today's task - 08-08-2025 *******************
+Task-01:- Users/Groups and Authentication via Ouath.
+Additional Points:-
+GroupName=sre_grp
+Users -> user1-5 belongs to sre_grp 
+
+Note: Already created [user1-5]
+
+ 
+UserName= user6-10
+Password= redhat123
+file-uploadName - htpasswd-upload-devops-team
+SecretName - secret-devops-team 
+IdP Name - IdP-htpasswd-devops-team
+GroupName=devops_grp 
+Users -> user6-10 belongs to devops_grp
+
+
+UserName= user11-20
+Password= redhat123
+file-uploadName - htpasswd-upload-myapp-team
+SecretName - secret-myapp-team 
+IdP Name - IdP-htpasswd-myapp-team
+GroupName=myapp_grp 
+Users -> user11-20 belongs to myapp_grp
+
+
+
+*************** New Learning here - w.r.t RBAC.
+Task-02:- Implement RBAC on cluster/namespace level-
+
+###
+user1-5 - belongs to sre_grp
+$ oc adm groups new sre_grp
+$ oc get groups 
+$ oc adm groups add-user sre_grp user1 
+or
+$ oc adm groups add-user sre_grp user2 user3 user4 user5 
+$ oc get groups 
+Assign "cluster-admin" access to sre_grp groups.
+$oc adm policy add-cluster-role-group cluster-admin  sre_grp 
+
+###
+user6-10 - belongs to devops_grp
+$ oc adm groups new devops_grp
+$ oc get groups 
+$ oc adm groups add-user devops_grp user6 
+or
+$ oc adm groups add-user devops_grp user7 user8 user9 user10 
+$ oc get groups 
+
+Assign "self-provisioner" access to devops_grp groups.
+$oc adm policy add-cluster-role-group self-provisioner devops_grp
+Note:- ONly devops_grp team can able to create project/namespace.
+
+$ oc describe clusterrolebindings | grep self
+$ oc describe clusterrolebindings self-provisioner
+INformation gather 
+$ oc adm policy remove-cluster-role-from-group self-provisioner  system:authenticated:oauth
+$ oc adm policy add-cluster-role-to-group self-provisioner devops_grp
+
+
+###
+NameSpace Name = ns-myapp
+RBAC assigment as below.
+user11/12/13 - admin access w.r.t namespace=ns-myapp 
+user14-18    - edit access w.r.t namespace=ns-myapp 
+user19-20    - view access  w.r.t namespace=ns-myapp 
+
+
+$ oc new-project ns-myapp
+$ oc adm policy add-role-to-user admin user11 -n ns-myapp
+$ oc adm policy add-role-to-user admin user12 -n ns-myapp
+$ oc adm policy add-role-to-user admin user13 -n ns-myapp
+
