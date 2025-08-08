@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp-container
+        image: image-registry.openshift-image-registry.svc:5000/openshift/httpd@sha256:8c6734c877c38126fc41fb403ecd3a26c092b061d62692d3c95ec634b500eba1
+        imagePullPolicy: IfNotPresent
+        name: httpd
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 8443
+            protocol: TCP
