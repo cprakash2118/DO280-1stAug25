@@ -51,8 +51,19 @@ GroupName=sre_grp
 Users -> user1-5 belongs to sre_grp 
 
 Note: Already created [user1-5]
+###
+user1-5 - belongs to sre_grp
+$ oc adm groups new sre_grp
+$ oc get groups 
+$ oc adm groups add-user sre_grp user1 
+or
+$ oc adm groups add-user sre_grp user2 user3 user4 user5 
+$ oc get groups 
+Assign "cluster-admin" access to sre_grp groups.
+$oc adm policy add-cluster-role-group cluster-admin  sre_grp 
 
- 
+
+####
 UserName= user6-10
 Password= redhat123
 file-uploadName - htpasswd-upload-devops-team
@@ -62,6 +73,29 @@ GroupName=devops_grp
 Users -> user6-10 belongs to devops_grp
 
 
+user6-10 - belongs to devops_grp
+$ oc adm groups new devops_grp
+$ oc get groups 
+$ oc adm groups add-user devops_grp user6 
+or
+$ oc adm groups add-user devops_grp user7 user8 user9 user10 
+$ oc get groups 
+
+Assign "self-provisioner" access to devops_grp groups.
+$oc adm policy add-cluster-role-group self-provisioner devops_grp
+Note:- ONly devops_grp team can able to create project/namespace.
+
+$ oc describe clusterrolebindings | grep self
+$ oc describe clusterrolebindings self-provisioner
+INformation gather 
+$ oc adm policy remove-cluster-role-from-group self-provisioner  system:authenticated:oauth
+$ oc adm policy add-cluster-role-to-group self-provisioner devops_grp
+
+
+
+
+#####
+
 UserName= user11-20
 Password= redhat123
 file-uploadName - htpasswd-upload-myapp-team
@@ -70,8 +104,20 @@ IdP Name - IdP-htpasswd-myapp-team
 GroupName=myapp_grp 
 Users -> user11-20 belongs to myapp_grp
 
+NameSpace Name = ns-myapp
+RBAC assigment as below.
+user11/12/13 - admin access w.r.t namespace=ns-myapp 
+user14-18    - edit access w.r.t namespace=ns-myapp 
+user19-20    - view access  w.r.t namespace=ns-myapp 
 
 
+$ oc new-project ns-myapp
+$ oc adm policy add-role-to-user admin user11 -n ns-myapp
+$ oc adm policy add-role-to-user admin user12 -n ns-myapp
+$ oc adm policy add-role-to-user admin user13 -n ns-myapp
+
+
+################################################################################
 *************** New Learning here - w.r.t RBAC.
 Task-02:- Implement RBAC on cluster/namespace level-
 
@@ -118,4 +164,10 @@ $ oc new-project ns-myapp
 $ oc adm policy add-role-to-user admin user11 -n ns-myapp
 $ oc adm policy add-role-to-user admin user12 -n ns-myapp
 $ oc adm policy add-role-to-user admin user13 -n ns-myapp
+
+
+################################################################################
+
+************************Solution***************************
+Task-02:- Implement RBAC on cluster/namespace level-
 
