@@ -152,6 +152,11 @@ $ oc adm policy remove-cluster-role-from-group self-provisioner  system:authenti
 $ oc adm policy add-cluster-role-to-group self-provisioner devops_grp
 
 
+################################################################################
+
+************************Solution***************************
+Task-02:- Implement RBAC on cluster/namespace level-
+
 ###
 NameSpace Name = ns-myapp
 RBAC assigment as below.
@@ -165,9 +170,39 @@ $ oc adm policy add-role-to-user admin user11 -n ns-myapp
 $ oc adm policy add-role-to-user admin user12 -n ns-myapp
 $ oc adm policy add-role-to-user admin user13 -n ns-myapp
 
+$ oc whoami 
+admin 
+$ oc adm policy add-role-to-user  edit user14 -n ns-myapp
+$ oc login -u user11 -p redhat 
+$ oc whoami 
+user11 
+$ oc project -q 
+ns-myapp
+$ oc policy add-role-to-user edit user15 
+$ for x in {14..18}
+do
+oc policy add-role-to-user edit user$x 
+done 
 
-################################################################################
+$ oc adm policy add-role-to-user view user19 -n ns-myapp 
+$ oc adm policy add-role-to-user view user20 -n ns-myapp
 
-************************Solution***************************
-Task-02:- Implement RBAC on cluster/namespace level-
+$ oc project -q 
+ns-myapp
+
+FYI- You must be executing below command via above namespace (ns-myapp).
+
+$ oc describe rolebindings |less 
+/search for user11
+/search for user17
+/search for user19
+
+etc 
+
+
+
+
+ 
+
+
 
