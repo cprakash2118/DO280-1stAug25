@@ -13,6 +13,11 @@ Unit-3 Authentication and Authorization:-
 
 ***************************************************
 Unit-4-  Network Security:-
+- Protect External Traffic with TLS [http/https-Edge/Passthrogh/re-encryption]
+- Configure Network Policies
+- Protect Internal Traffic with TLS 
+
+
 Base understanding(network lab).
 
 LAB:-
@@ -40,7 +45,7 @@ $ oc get scc | grep pri/anyuid
 $ oc adm policy add-scc-to-user anyuid  app-sa 
 $ oc edit deployment 
 Add serviceAccount 
- nameServerAccount: app-sa 
+ nameServiceAccount: app-sa 
  contents: 
   runAsUser = 0
   
@@ -50,6 +55,72 @@ $ oc apply file-name.yaml
 Note: Update the index.html file to each POD (3 pods).
 $ curl http://abc123.apps.ocp4.example.com
 $ curl http://abc123.apps.ocp4.example.com
+
+#####################################
+namespace=network-policy 
+podName=hello ; svcName=hello; routeName=hello 
+podName=test ; svcName=test 
+
+namespace=different-network 
+podName=sample ; svcName=sample 
+
+
+case-01: By default all are able to connect to each other (flat network).
+case-02: Apply network policy to deny all communication (incoming traffice - ingress) towards "network-policy" - applied network policy.
+
+case-03: Allow specific.
+sample to hello - only allowed 
+
+Testing result:-
+Case-01:- (ingress traffice w.r.t network-policy namespace).
+sample to hello - working 
+sample to test  - working 
+
+test to hello - working 
+hello to test - working 
+
+*******************************
+- Protect Internal Traffic with TLS:-
+NOte: INternal communication within OCP cluster in plan text message.
+
+
+service-01 to service-02 
+client(crt)   server (crt & key)
+
+service-02 to service-01 
+client          server 
+
+
+Step-1:-
+service-ca controller CA (crt & key)
+$ oc annotate service hello service.beta.openshift.io/serving-cert-secret-name=hello-secret
+$ oc get secret (same namespace)
+$ oc extract secret/hello-secret --to=.
+tls.crt 
+tls.key 
+
+Step-2:- 
+mount the secret to deployment (server side- )1st example - service-02.
+
+Note: Step-1 & step-2 on server side.
+
+Step-3:- 
+- Create configmap 
+$ oc create configmap ca-bundle (same namespace)
+- label configmap 
+$ oc annotate configmap ca-bundle  service.beta.openshift.io/inject-cabundle=true
+
+Step-4:-
+mount the configmap to deployment (client side- )1st example - service-01.
+
+
+
+
+
+ 
+
+
+
 
 
 
