@@ -1,0 +1,59 @@
+#Quick Recap (5 mins ):-
+Unit-1 Declarative Resource Management
+- Resource Manifests  (Create/validate/apply/delete etc)
+- Kustomize Overlays  (Kustomization.yaml w.r.t base dir ; overlay deployment)
+
+Unit-2  Deploy Packaged Applications
+- OpenShift Templates (defaults templates, new tenplate build)
+- Helm Charts  (Install helm and deploy packaged application)
+
+Unit-3 Authentication and Authorization:-
+- Configure Identity Providers (IdP=htpasswd, Identity Agent - Oauth)
+- Define and Apply Permissions with RBAC (Cluster/namespace).
+
+***************************************************
+Unit-4-  Network Security:-
+Base understanding(network lab).
+
+LAB:-
+1- Login to OCP cluster as admin/redhatocp.
+$ oc login -u admin -p redhatocp https://api.ocp4.example.com:6443 
+
+2- Create project/namespace:-
+$ oc new-project ns-demo51 
+$ oc project -q 
+
+3- Deploy application using below command.
+$ oc new-app --name myapp httpd:latest 
+$ oc get pods 
+$ oc get svc 
+$ oc get replicaset   (workload)
+$ oc get deployment   (workload)
+$ oc expose service svc_name --hostname abc123.apps.ocp4.example.com
+
+$ oc scale --replicas=3 deployment/myapp 
+
+$ oc get pods 
+3 pods 
+$ oc create serviceaccount app-sa 
+$ oc get scc | grep pri/anyuid
+$ oc adm policy add-scc-to-user anyuid  app-sa 
+$ oc edit deployment 
+Add serviceAccount 
+ nameServerAccount: app-sa 
+ contents: 
+  runAsUser = 0
+  
+$ oc apply file-name.yaml 
+
+
+Note: Update the index.html file to each POD (3 pods).
+$ curl http://abc123.apps.ocp4.example.com
+$ curl http://abc123.apps.ocp4.example.com
+
+
+
+
+ 
+
+
