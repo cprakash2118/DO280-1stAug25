@@ -1,0 +1,62 @@
+-Unit-4-# Network Security
+- Protect External Traffic with TLS [http/https-Edge/passthrough/re-encrption route]
+- Configure Network Policies [deny,specific-allow etc]
+- Protect Internal Traffic with TLS [service-sa conroller CA]
+  
+-Unit-5-# Expose non-HTTP/SNI Applications:-
+- Load Balancer Services 
+- Multus Secondary Networks
+
+Service - CLusterIP,Loadbalancer (LB), NodePort (np).
+
+Application deployment:-
+application (myapp) -> POD-01/02/03 (replicaSet & Deployment done)
+service -> (myapp) 
+Route -> When expose service (myapp).
+ http://myapp.apps.ocp4.example.com
+ https://myapp.apps.ocp4.example.com
+ 
+Step-1:- Create new namespace-
+$ oc new-project ns-demo51
+$ oc project -q
+$ oc get all 
+
+$ oc new-app --name myapp httpd:latest 
+$ oc scale --replicas=3 deployment ns-demo51 
+$ oc get pods 
+$ oc get svc 
+$ oc get deployment,replicaset 
+
+$ oc expose service serviceName 
+$ oc get route 
+
+$ oc get svc 
+ClusterIP 
+
+$ curl https://myapp.apps.ocp4.example.com 
+
+
+$ oc edit svc serviceNAme 
+/search for "type"
+then replace service type - clusterIP, Loadbalancer, NodePort.
+Then save it 
+$ oc get svc 
+
+$ http://192.168.50.51
+welcome page (update the service Account & index.html file)
+
+
+$ oc edit svc serviceNAme 
+/search for "type" 
+then replace service type Loadbalancer
+
+:wq 
+
+$ $ oc edit svc serviceNAme 
+/search for "type" 
+then replace service type NodePort )
+
+$ oc get svc
+
+
+
