@@ -1,0 +1,98 @@
+Users (IdP=htpasswd):-
+IdP-htpasswd-devops-na [user1-5]
+IdP-htpasswd-devops-apac [user6-10]
+IdP-htpasswd-myapp [user11-30]
+
+
+ RBAC:-
+ - rule - Action to be perfored.
+ - roles - Set of action
+ - rolebinding - assign role(s) to user/group called rolebinding.
+
+Scope of RBAC:-
+ - cluster level 
+ - namespace/project level  
+
+Defaults roles:- 
+1- cluster-admin   [Same as root account]
+2- cluster-reader
+3- cluster-status 
+4- self-provisioner [Allow to create namespace/project]
+   FYI- all users logged in to OCP cluster via Oauth are able to create namespace/project by default.
+   
+5- admin (w.r.t namespace/project).
+6- edit (w.r.t namespace/project).
+7- view (w.r.t namespace/project).
+8- basic 
+
+any user (not part of any project, land on default project).
+
+
+---------------------
+$ htpasswd -c -B -b  htpasswd-upload-devops-na user1 redhat123 
+$ cat htpasswd-upload-sre-team
+$ htpasswd    -B -b  htpasswd-upload-devops-na user2 redhat123
+
+------------------
+Step-01:- Create users/password database:-
+
+touch htpasswd-upload-devops-apac
+touch htpasswd-upload-devops-na
+touch htpasswd-upload-myapp 
+
+for x in {1..5}
+do
+htpasswd -b -B htpsswd-upload-devops-na user$x redhat 
+done 
+
+for x in {6..10}
+do
+htpasswd -b -B htpsswd-upload-devops-apac user$x redhat 
+done 
+
+
+for x in {11..30}
+do
+htpasswd -b -B htpsswd-upload-myapp user$x redhat 
+done
+
+$ oc whoami --show-console 
+https://console-openshift-console.apps.ocp4.example.com    [Login as admin/redhatocp]
+
+-> Click on "Administration" - Left side bar 
+-> CLick on "Cluster Settings"
+-> Click on "Configuration"
+-> Search for "oauth" and click.
+-> Add Identity Provider (Under Identity Provider).
+
+Users (IdP=htpasswd):-
+IdP-htpasswd-devops-na [user1-5]
+IdP-htpasswd-devops-apac [user6-10]
+IdP-htpasswd-myapp [user11-30]
+
+Create groups:-
+- devops-na_grp 
+- devops-apac_grp
+- myapp_grp 
+
+
+Few Admin task must be performed on newly created OCP cluster:-
+Admin Task:-
+ - Users [user1-5] belongs to  group "devops-na_grp".
+ - Users [user6-10] belongs to group "devops-apac_grp".
+ - Users [user11-30] belongs to group "myapp_grp".
+ 
+ - Group "devops-na_grp" must have "cluster-admin" access.
+ - Group "devops-apac_grp" only able to create project/namespace.
+ 
+ - only cluster-admin or specific users/groups can only create namespace/project.
+ - kubeadmin aacount must be deleted.
+
+================ Deployment ================
+ - Create namespace/project - "ns-myapp" 
+ - Assign user11-15 as admin w.r.t namespace=ns-myapp
+ - Assign user16-25 as edit access w.r.t namespace=ns-myapp
+ - Assign user26-30 as view access w.r.t namespace=ns-myapp
+
+
+
